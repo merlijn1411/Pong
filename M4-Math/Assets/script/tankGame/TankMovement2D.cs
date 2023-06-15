@@ -8,6 +8,8 @@ public class TankMovement2D : MonoBehaviour
     public float speed = 1.0f;
     Vector2 minView;
     Vector2 maxView;
+    public Bullet bullet;
+    public AudioSource shot;
 
     void Start()
     {
@@ -22,13 +24,13 @@ public class TankMovement2D : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.RightArrow))
         {
-            transform.localEulerAngles += new Vector3(0, 0, -90);
-            velocity = Quaternion.Euler(0, 0, -90) * velocity;
+            transform.localEulerAngles += new Vector3(0, 0, -10);
+            velocity = Quaternion.Euler(0, 0, -10) * velocity;
         }
         if (Input.GetKeyDown(KeyCode.LeftArrow))
         {
-            transform.localEulerAngles += new Vector3(0, 0, 90);
-            velocity = Quaternion.Euler(0, 0, 90) * velocity;
+            transform.localEulerAngles += new Vector3(0, 0, 10);
+            velocity = Quaternion.Euler(0, 0, 10) * velocity;
         }
         if (Input.GetKeyDown(KeyCode.UpArrow))
         {
@@ -37,6 +39,13 @@ public class TankMovement2D : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.DownArrow))
         {
             speed--;
+        }
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            Bullet newBullet = Instantiate(bullet, transform.position, Quaternion.identity);
+            newBullet.velocity = velocity;  
+            newBullet.speed = 10f;   
+            shot.Play();
         }
 
     }
